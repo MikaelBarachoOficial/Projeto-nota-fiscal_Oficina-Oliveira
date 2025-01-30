@@ -1,0 +1,89 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+input[type="button"], input[type="submit"] {
+    cursor: pointer;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+
+    padding: 1em 0 1em 0;
+
+    flex-wrap: wrap;
+
+    background-color: rgb(177, 143, 143);
+}
+
+header img {
+    height: 3em;
+}
+
+header div {
+    display: flex;
+    align-items: center;
+}
+
+header p {
+    font-size: 1.4em;
+
+}
+
+/* MAIN */
+main section {
+    display: flex;
+    justify-content: space-between;
+
+    flex-wrap: wrap;
+}
+
+.nota-management {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    margin: 1em;
+
+    flex-wrap: wrap;
+}
+
+.nota-management .inputs {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    margin: 1em;
+
+    flex-wrap: wrap;
+}
+
+ input {
+    font-size: 1.2em;
+    padding: 0 0.5em 0 0.5em;
+}
+
+.exportacao {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    margin: 1em;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+}
+
+.delete-nota-btn {
+    background-image: url('./images/delete-309164_960_720.webp');
+    background-color: #ffffff; /* Set your desired solid background color */
+    background-size: cover; /* Adjust the size of the background image */
+    background-repeat: no-repeat; /* Prevent the background image from repeating */
+    width: 1.2em; /* Set the width of the button */
+    height: 1.2em; /* Set the height of the button */
+    border: none; /* Remove the border */
+    cursor: pointer; /* Change the cursor to a pointer */
+    margin-left: 0.5em;
+}
