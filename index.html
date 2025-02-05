@@ -22,7 +22,7 @@
                 <div class="inputs">
                     <input type="text" placeholder="Número da nota" required>
                     <input type="text" placeholder="Valor da nota" required>
-                    <input type="date" required>
+                    <input type="text" id="date-input" placeholder="DD/MM/YYYY" required readonly>                    
                     <input type="submit" value="Adicionar">
                 </div>
                 <div class="table">
@@ -39,7 +39,7 @@
                             <tr>
                                 <td><input type="text" value="123456" required></td>
                                 <td><input type="text" value="123456" required></td>
-                                <td><input type="text" value="123456" required></td>
+                                <td><input type="text" value="12/34/56" required></td>
                                 <td>
                                     <input class="delete-nota-btn" type="button">
                                 </td>
@@ -48,11 +48,14 @@
                     </table>
             </section>
             <section class="exportacao">
-                <input type="button" value="Exportar">
+                <input type="button" id="import-XMLfiles" value="Importar por XML">
+                <input type="button" value="Exportar para .xlsx">
             </section>
         </section>
     </main>
+    <!-- <script src="./scripts/date-input.js"></script> -->
     <script src="./scripts/script.js"></script>
+    <script type="module" src="./scripts/import-XMLfiles.js"></script>
     <script src="./scripts/export-excel.js"></script>
 </body>
 </html>

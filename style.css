@@ -3,8 +3,10 @@
     padding: 0;
 }
 
-input[type="button"], input[type="submit"] {
+.exportacao input[type="button"], input[type="submit"] {
     cursor: pointer;
+    height: 2em;
+    border-radius: 12px;
 }
 
 header {
@@ -65,13 +67,20 @@ main section {
     padding: 0 0.5em 0 0.5em;
 }
 
+#date-input {
+    max-width: 5em;
+    text-align: center;
+}
+
 .exportacao {
     display: flex;
     flex-direction: row;
     gap: 1em;
     margin: 1em;
 
+    align-items: center;
     justify-content: center;
+    padding: 0 5em 0 5em;
 
     flex-wrap: wrap;
 }
