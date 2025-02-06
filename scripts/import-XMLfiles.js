@@ -92,11 +92,11 @@ function addInvoiceToTable(number, value, date) {
 function deleteNota(event) {
     if (event.target.classList.contains('delete-nota-btn')) {
         const row = event.target.closest('tr');
-        const valueCell = row.querySelector('td:nth-child(2) input');
+        const valueCell = row.querySelector(`td:nth-child(3) input`);
 
         if (valueCell) {
 
-            const value = parseFloat(valueCell.value.replace('R$', '').trim());
+            const value = parseFloat(valueCell.value.replace('R$', '').replace(/\./g, '').replace(',', '.').trim());
 
             if (!isNaN(value)) {
                 totalValue -= value;
