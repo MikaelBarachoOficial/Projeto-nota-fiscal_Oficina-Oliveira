@@ -1,4 +1,14 @@
-document.getElementById('import-XMLfiles').addEventListener('click', async () => {
+const importXMLfilesBtn = document.getElementById('import-XMLfiles');
+
+const tableBody = document.querySelector('table tbody');
+const tableHead = document.querySelector('table thead');
+
+const clearTableBtn = document.getElementById('clear-table-btn');
+
+const totalValueField = document.getElementById('total-value');
+var totalValue = 0;
+
+importXMLfilesBtn.addEventListener('click', async () => {
     const pickerOpts = {
         types: [
             {
@@ -24,7 +34,11 @@ document.getElementById('import-XMLfiles').addEventListener('click', async () =>
     } catch (err) {
         console.error('Error selecting files:', err);
     }
+
+    toggleVisibility();
+    totalValueField.value = `R$ ${totalValue.toFixed(2)}`;
 });
+
 
 function parseXML(xmlString) {
 
@@ -38,14 +52,19 @@ function parseXML(xmlString) {
     if (invoiceNumberElement && invoiceValueElement && invoiceDateElement) {
 
         const invoiceNumber = invoiceNumberElement.textContent;
-        const invoiceValue = invoiceValueElement.textContent;
+        let invoiceValue = invoiceValueElement.textContent;
         const invoiceDateTime = invoiceDateElement.textContent;
 
-        const invoiceDate = new Date(invoiceDateTime).toLocaleDateString('pt-BR');
-
-        console.log(invoiceNumber);
         console.log(invoiceValue);
-        console.log(invoiceDate);
+
+        invoiceValue = parseFloat(invoiceValue);
+        if (!isNaN(invoiceValue)) {
+            totalValue += invoiceValue;
+            totalValue = parseFloat(totalValue.toFixed(2)); // Ensure totalValue is a number with 2 decimal places
+            console.log(totalValue);
+        }
+
+        const invoiceDate = new Date(invoiceDateTime).toLocaleDateString('pt-BR');
 
         // Add the extracted invoice data to the table
         addInvoiceToTable(invoiceNumber, invoiceValue, invoiceDate);
@@ -62,10 +81,48 @@ function addInvoiceToTable(number, value, date) {
 
     row.innerHTML = `
              <td><input type="text" value="${number}" required readonly></td>
-             <td><input type="text" value="R$ ${value}" required readonly></td>
+             <td><input type="text" value="R$ ${parseFloat(value).toFixed(2)}" id="invoiceValueField" required readonly></td>
              <td><input type="text" value="${date}" required readonly></td>
              <td><input class="delete-nota-btn" type="button"></td>
          `;
 
     tableBody.appendChild(row);
+}
+
+function deleteNota(event) {
+    if (event.target.classList.contains('delete-nota-btn')) {
+        const row = event.target.closest('tr');
+        const valueCell = row.querySelector('td:nth-child(2) input');
+        if (valueCell) {
+            const value = parseFloat(valueCell.value.replace('R$', '').trim());
+            if (!isNaN(value)) {
+                totalValue -= value;
+                totalValue = parseFloat(totalValue.toFixed(2)); // Ensure totalValue is a number with 2 decimal places
+                console.log(totalValue);
+            }
+        }
+        tableBody.removeChild(row);
+        toggleVisibility(); // Ensure visibility is toggled after deleting a row
+        totalValueField.value = `R$ ${totalValue.toFixed(2)}`; // Update total value display
+    }
+}
+
+tableBody.addEventListener('click', deleteNota);
+
+clearTableBtn.addEventListener('click', () => {
+    tableBody.innerHTML = '';
+    totalValue = 0;
+    toggleVisibility();
+})
+
+function toggleVisibility() {
+    if (tableBody.children.length === 0) {
+        tableHead.classList.add('hidden');
+        clearTableBtn.classList.add('hidden');
+        totalValueField.classList.add('hidden');
+    } else {
+        tableHead.classList.remove('hidden');
+        clearTableBtn.classList.remove('hidden');
+        totalValueField.classList.remove('hidden');
+    }
 }
